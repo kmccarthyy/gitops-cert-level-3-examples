@@ -7,11 +7,40 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: https://github.com/kmccarthyy/gitops-cert-level-3-examples.git
-      revision: HEAD
-      files:
-      - path: "helm-multi-source/03-external-repo/env-config/**/config.json"       
+  - list:
+      elements:
+      - env: integration-gpu
+        region: us
+        type: non-prod
+        version: qa
+      - env: integration-non-gpu
+        region: us
+        type: non-prod
+        version: qa
+      - env: qa
+        region: us  
+        type: non-prod   
+        version: qa     
+      - env: staging-asia
+        region: asia
+        type: non-prod  
+        version: staging       
+      - env: staging-eu
+        region: eu
+        type: non-prod  
+        version: staging       
+      - env: staging-us
+        region: us
+        type: non-prod  
+        version: staging       
+      - env: prod-eu
+        region: eu  
+        type: prod  
+        version: prod       
+      - env: prod-us
+        region: us 
+        type: prod
+        version: prod         
   template:      
     metadata:
       name: '{{.env}}' 
@@ -46,4 +75,4 @@ spec:
         automated: 
           prune: true 
           selfHeal: true 
-    
+      
